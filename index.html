@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>ExtJS Test</title>
+    <link
+            href="./classic/theme-classic/resources/theme-classic-all.css"
+            rel="stylesheet"
+    />
+    <script type="text/javascript" src="./ext-all.js">
+    </script>
+    <script type="text/javascript">
+
+        Ext.application({
+            name: 'MyApp',
+
+            launch: function () {
+                Ext.create('Ext.panel.Panel', {
+                    title: 'Login Form',
+                    width: 300,
+                    bodyPadding: 10,
+                    renderTo: Ext.getBody(),
+                    items: [
+                        {
+                            xtype: 'textfield',
+                            fieldLabel: 'ID',
+                            itemId: 'idField',
+                            allowBlank: false,
+                            vtype: 'alphanum', // 알파벳과 숫자만 허용하는 예시 validation
+                            vtypeText: 'id error',
+                        },
+                        {
+                            xtype: 'textfield',
+                            inputType: 'password',
+                            fieldLabel: 'Password',
+                            itemId: 'passwordField',
+                            allowBlank: false,
+                            vtype: 'customPassword', // 여기에 사용자 정의 vtype도 사용할 수 있습니다.
+                            vtypeText: 'password error',
+                        },
+                        {
+                            xtype: 'button',
+                            text: 'Login',
+                            handler: function () {
+                                var idField =
+                                    this.up('pan  el').down('#idField');
+                                var passwordField =
+                                    this.up('panel').down('#passwordField');
+
+                                var id = idField.getValue();
+                                var password = passwordField.getValue();
+                                if (idField.isValid() && passwordField.isValid()) {
+                                    Ext.Msg.alert(
+                                        'Login Information',
+                                        'ID: ' +
+                                        id +
+                                        '<br>Password: ' +
+                                        password,
+                                    );
+                                    // ID와 Password 값을 초기화
+                                    idField.setValue();
+                                    passwordField.setValue();
+                                }else {
+                                    Ext.Msg.alert('Validation Error', 'Please fix the validation errors.');
+                                }
+                            },
+                        },
+                    ],
+                });
+            },
+        });
+    </script>
+</head>
+<body></body>
+</html>
